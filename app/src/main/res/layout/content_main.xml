@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.project.shrey.ftptrial.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/userParent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#a3a3a3">
+
+            <EditText
+                android:id="@+id/user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hintUser"
+                android:inputType="text"
+                android:padding="18dp"
+                android:textSize="18sp"
+                android:textColor="@color/editText"
+                android:backgroundTint="@color/editText"
+                android:textColorHint="@color/editTextCH"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="visible"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/userDisp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/defaultSetting"
+            android:padding="18dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorText"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:gravity="left"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/passwdParent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#a3a3a3"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/passwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hintPassword"
+                android:inputType="textPassword"
+                android:padding="18dp"
+                android:textSize="18sp"
+                android:textColor="@color/editText"
+                android:backgroundTint="@color/editText"
+                android:textColorHint="@color/editTextCH"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/passwdDisp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/defaultSetting"
+            android:padding="18dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorText"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:gravity="left"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
+    <Switch
+        android:id="@+id/togglePass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#e8e8e8"
+        android:text="@string/passwordShow"
+        android:gravity="center"
+        android:layout_gravity="left"
+        android:textSize="15sp"
+        android:padding="4dp"
+        android:layout_margin="4dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pathHomeExt"
+            android:textSize="18sp"
+            android:textColor="#e8e8e8" />
+
+        <EditText
+            android:id="@+id/subLoc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="@string/subLocation"
+            android:textSize="18sp"
+            android:textColor="@color/colorText"
+            android:backgroundTint="@color/editText"
+            android:textColorHint="@color/editTextCH"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
+            android:visibility="visible"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:layout_marginTop="6dp"
+        android:text="@string/serverPrompt"
+        android:textColor="@color/colorText"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:visibility="invisible"/>
+
+    <LinearLayout
+        android:id="@+id/addr1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="invisible" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="@string/sysApple"
+            android:textColor="@color/colorText"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/addriOS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="@string/def_addr_ios"
+            android:textColor="#e8e8e8"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/addr2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="invisible" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="@string/sysOthers"
+            android:textColor="@color/colorText"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/addrReg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="@string/def_addr_reg"
+            android:textColor="#e8e8e8"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
