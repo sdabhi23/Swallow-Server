@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -114,7 +115,22 @@ public class MainActivity extends AppCompatActivity {
 
         finalServer = serverFactory.createServer();
 
-        toolbar.setOnClickListener(view -> MainActivity.this.serverControl());
+        toolbar.setOnClickListener(view -> {
+            try {
+                if (checkWifiOnAndConnected(this) || wifiHotspotEnabled(this)) {
+                    MainActivity.this.serverControl();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage(R.string.dialog_wifi_message).setTitle(R.string.dialog_wifi_title);
+                    builder.setPositiveButton("OK", (dialog, id) -> dialog.dismiss());
+                    builder.show();
+                }
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        });
 
         mTogglePass.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
@@ -234,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String wifiIpAddress(Context context) {
         try {
-            if (wifiEnabled(context)) {
+            if (wifiHotspotEnabled(context)) {
                 return "192.168.43.1";
             }
         } catch (InvocationTargetException e) {
@@ -245,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
         return Utils.getIPAddress(true);
     }
 
-    private boolean wifiEnabled(Context context) throws InvocationTargetException, IllegalAccessException {
+    private boolean wifiHotspotEnabled(Context context) throws InvocationTargetException, IllegalAccessException {
         WifiManager manager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         Method method = null;
         try {
@@ -255,6 +271,21 @@ public class MainActivity extends AppCompatActivity {
         }
         method.setAccessible(true); //in the case of visibility change in future APIs
         return (Boolean) method.invoke(manager);
+    }
+
+    private boolean checkWifiOnAndConnected(Context context) {
+        WifiManager wifiMgr = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+        assert wifiMgr != null;
+        if (wifiMgr.isWifiEnabled()) { // Wi-Fi adapter is ON
+
+            WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+
+            return wifiInfo.getNetworkId() != -1;
+        }
+        else {
+            return false; // Wi-Fi adapter is OFF
+        }
     }
 
     @Override
@@ -321,6 +352,7 @@ public class MainActivity extends AppCompatActivity {
                 finalServer.start();
                 mAddrReg.setText(String.format("ftp://%s:2121", wifiIpAddress(this)));
                 mAddriOS.setText(String.format("ftp://%s:%s@%s:2121", user, passwd, wifiIpAddress(this)));
+
             } catch (FtpException e) {
                 e.printStackTrace();
             }
@@ -350,6 +382,7 @@ public class MainActivity extends AppCompatActivity {
 
             mAddr1.setVisibility(View.INVISIBLE);
             mAddr2.setVisibility(View.INVISIBLE);
+
         }
 
     }

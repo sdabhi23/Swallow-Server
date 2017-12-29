@@ -21,4 +21,7 @@
     <string name="ImgPower">Power Button</string>
     <string name="ImgHeader">File Transfer Protocol</string>
 
+    <string name="dialog_wifi_title">Wi-Fi OR Hotspot Required</string>
+    <string name="dialog_wifi_message">Please turn on the mobile hotspot or connect to a Wi-Fi network to share your files</string>
+
 </resources>
