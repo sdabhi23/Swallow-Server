@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/kTFWJV8.png" alt="Swallow Server" style="width: 150px;"/>
+<img src="https://i.imgur.com/kTFWJV8.png" alt="Swallow Server" width="150" height="150"/>
 
 # Swallow Server
 ##### A simple, quick and light-weight FTP server
