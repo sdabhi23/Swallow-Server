@@ -32,6 +32,7 @@
                 android:inputType="text"
                 android:padding="15dp"
                 android:textColor="@color/editText"
+                android:backgroundTint="@color/editText"
                 android:textColorHint="@color/editTextCH"
                 android:visibility="visible"/>
 
@@ -71,6 +72,7 @@
                 android:inputType="textPassword"
                 android:padding="15sp"
                 android:textColor="@color/editText"
+                android:backgroundTint="@color/editText"
                 android:textColorHint="@color/editTextCH" />
 
         </android.support.design.widget.TextInputLayout>

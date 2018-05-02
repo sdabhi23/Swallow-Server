@@ -3,6 +3,7 @@ package com.project.shrey.ftptrial;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -19,10 +20,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import net.rdrei.android.dirchooser.DirectoryChooserActivity;
+import net.rdrei.android.dirchooser.DirectoryChooserConfig;
 
 import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.FtpServerFactory;
@@ -53,14 +58,16 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView mAddrReg, mAddriOS, mPrompt, mPasswdDisp, mUserDisp;
-    EditText mUser, mPasswd, mSubLoc;
+    TextView mAddrReg, mAddriOS, mPrompt, mPasswdDisp, mUserDisp, mDirAddress;
+    EditText mUser, mPasswd;
     Switch mTogglePass;
     LinearLayout mAddr1, mAddr2;
     TextInputLayout mUserParent, mPasswdParent;
+    Button mDirChooser;
     static String pass;
 
     final int MY_PERMISSIONS_REQUEST = 2203;
+    final int REQUEST_DIRECTORY = 2108;
 
     FtpServerFactory serverFactory = new FtpServerFactory();
     ListenerFactory factory = new ListenerFactory();
@@ -96,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         mTogglePass = findViewById(R.id.togglePass);
         mTogglePass.setEnabled(false);
         mTogglePass.setChecked(false);
-        mSubLoc = findViewById(R.id.subLoc);
         mUserParent = findViewById(R.id.userParent);
         mUser = findViewById(R.id.user);
         mUserDisp = findViewById(R.id.userDisp);
@@ -112,6 +118,22 @@ public class MainActivity extends AppCompatActivity {
         mAddriOS = findViewById(R.id.addriOS);
         mAddr1 = findViewById(R.id.addr1);
         mAddriOS.setText(String.format("ftp://ftp:ftp@%s:2121", wifiIpAddress(this)));
+
+        mDirAddress = findViewById(R.id.dirAddress);
+        mDirChooser= findViewById(R.id.dirChooser);
+
+        mDirChooser.setOnClickListener(view -> {
+            final Intent chooserIntent = new Intent(this, DirectoryChooserActivity.class);
+
+            final DirectoryChooserConfig config = DirectoryChooserConfig.builder()
+                    .newDirectoryName("New Folder")
+                    .allowNewDirectoryNameModification(true)
+                    .build();
+
+            chooserIntent.putExtra(DirectoryChooserActivity.EXTRA_CONFIG, config);
+
+            startActivityForResult(chooserIntent, REQUEST_DIRECTORY);
+        });
 
         finalServer = serverFactory.createServer();
 
@@ -160,6 +182,17 @@ public class MainActivity extends AppCompatActivity {
                     });
                     builder.show();
                 }
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_DIRECTORY) {
+            if (resultCode == DirectoryChooserActivity.RESULT_CODE_DIR_SELECTED) {
+                mDirAddress.setText(data.getStringExtra(DirectoryChooserActivity.RESULT_SELECTED_DIR));
             }
         }
     }
@@ -302,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
 
             mUser.setEnabled(false);
             mPasswd.setEnabled(false);
-            mSubLoc.setEnabled(false);
+            mDirChooser.setEnabled(false);
 
             String user = mUser.getText().toString();
             String passwd = mPasswd.getText().toString();
@@ -312,7 +345,7 @@ public class MainActivity extends AppCompatActivity {
             if (passwd.isEmpty()) {
                 passwd = "ftp";
             }
-            String subLoc = mSubLoc.getText().toString();
+            String subLoc = mDirAddress.getText().toString().substring(20);
 
             pass = passwd;
 
@@ -386,4 +419,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 }

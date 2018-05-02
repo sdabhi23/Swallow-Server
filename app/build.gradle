@@ -37,4 +37,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    implementation 'net.rdrei.android.dirchooser:library:3.2@aar'
+    implementation 'com.gu:option:1.3'
 }
